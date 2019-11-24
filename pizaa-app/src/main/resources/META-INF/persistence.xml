@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             version="2.0">
+
+    <persistence-unit name="pizza">
+        
+        <properties>
+
+            <property
+                    name = "hibernate.connection.url"
+                    value="jdbc:mysql://localhost:3306/pizza_store?createDatabaseIfNotExist=true&amp;useSSL=false"/>
+
+            <property
+                    name ="connection.driver_class"
+                    value="com.mysql.jdbc.Driver"/>
+
+            <property
+                    name = "hibernate.connection.username"
+                    value="root"/>
+
+            <property
+                    name = "hibernate.connection.password"
+                    value="root"/>
+
+            <property
+                    name = "hibernate.dialect"
+                    value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+
+            <property
+                    name = "hibernate.hbm2ddl.auto"
+                    value="none"/>
+
+            <property
+                    name = "hibernate.show_sql"
+                    value = "false" />
+                    
+            <property 
+                      name = "property.pass" 
+                      value = "hibernate.globally_quoted_identifiers=true"/>        
+
+            <property name="hibernate.format_sql" value="false"/>
+
+        </properties>
+        
+    </persistence-unit>
+
+</persistence>
