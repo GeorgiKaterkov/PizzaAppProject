@@ -42,7 +42,7 @@ public class OrderDAO implements DAO<Order>{
 	}
 
 	@Override
-	public void update(Order t, String[] params) {
+	public void update(int id) {
 		// TODO Auto-generated method stub
 		
 	}

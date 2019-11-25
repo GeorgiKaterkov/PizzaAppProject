@@ -1,19 +1,23 @@
 package dao;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.persistence.EntityManager;
 
 import dao.OrderDAO;
 import configuration.JPAConfiguration;
 import entities.Order;
+import entities.Pizza;
 import entities.Sauce;
 
 public class SauceDAO implements DAO<Sauce>{
 	
 	private EntityManager entityManager ;
 	private OrderDAO orderDao;
+	Scanner scan;
 	
 	public SauceDAO(){
 		JPAConfiguration config = new JPAConfiguration();
@@ -43,8 +47,17 @@ public class SauceDAO implements DAO<Sauce>{
 	}
 
 	@Override
-	public void update(Sauce t, String[] params) {
-		// TODO Auto-generated method stub		
+	public void update(int id) {
+		scan = new Scanner(System.in);
+		Sauce sauce = entityManager.find(Sauce.class, id);
+		System.out.println(sauce);
+		System.out.println("Update price: ");
+		BigDecimal newPrice = scan.nextBigDecimal();
+		sauce.setPrice(newPrice);
+		entityManager.getTransaction().begin();
+		entityManager.merge(sauce);
+		entityManager.getTransaction().commit();	
+		System.out.println("UPDATED");
 	}
 
 	@Override

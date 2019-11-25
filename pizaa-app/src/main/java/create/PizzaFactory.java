@@ -24,7 +24,7 @@ public class PizzaFactory {
     public PizzaFactory(){
     	pizzaDAO = new PizzaDAO();
     };
-	
+	//USER
 	public void getAllPizzas(){	
 		
 		System.out.println("Menu: ");
@@ -33,7 +33,7 @@ public class PizzaFactory {
 		System.out.println(pizza.toString());	
 		
 	}
-	
+	//USER
 	public Pizza choosePizza(){		
 		System.out.println("Enter your option: ");
 		scan = new Scanner(System.in);
@@ -70,5 +70,13 @@ public class PizzaFactory {
 		int choice = scan.nextInt();
 		System.out.println("Choice sended");
 		pizzaDAO.delete(choice);		
+	}
+	//ADMIN
+	public void updatePizza(){
+		scan = new Scanner(System.in);
+		System.out.println("Enter pizza id: ");
+		int choice = scan.nextInt();
+		System.out.println("Choice sended");
+		pizzaDAO.update(choice);
 	}
 }

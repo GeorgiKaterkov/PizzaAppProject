@@ -1,18 +1,22 @@
 package dao;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.persistence.EntityManager;
 
 import configuration.JPAConfiguration;
 import entities.Drink;
 import entities.Order;
+import entities.Sauce;
 
 public class DrinkDAO implements DAO<Drink>{
 	private static final String SELECT_DRINK_BY_ID = "FROM Drink d WHERE d.id = :id";
 	private EntityManager entityManager ;
 	private OrderDAO orderDao;
+	Scanner scan;
 	
 	public DrinkDAO(){
 		JPAConfiguration config = new JPAConfiguration();
@@ -42,9 +46,17 @@ public class DrinkDAO implements DAO<Drink>{
 	}
 
 	@Override
-	public void update(Drink t, String[] params) {
-		// TODO Auto-generated method stub
-		
+	public void update(int id) {
+		scan = new Scanner(System.in);
+		Drink drink = entityManager.find(Drink.class, id);
+		System.out.println(drink);
+		System.out.println("Update price: ");
+		BigDecimal newPrice = scan.nextBigDecimal();
+		drink.setPrice(newPrice);
+		entityManager.getTransaction().begin();
+		entityManager.merge(drink);
+		entityManager.getTransaction().commit();	
+		System.out.println("UPDATED");		
 	}
 
 	@Override

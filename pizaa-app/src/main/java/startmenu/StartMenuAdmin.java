@@ -39,10 +39,14 @@ public class StartMenuAdmin {
 			deleteProduct();
 			mainMenu();
 			break;
-
+		case 3:
+			updateProduct();
+			mainMenu();
+			break;
 		}
 	}
-    //ADD
+
+	// ADD
 	public void addNewProduct() {
 		System.out.println("==============");
 		System.out.println("| 1.Add pizza|");
@@ -65,10 +69,12 @@ public class StartMenuAdmin {
 			DrinkFactory df = new DrinkFactory();
 			df.addNewDrink();
 			break;
+
 		}
 	}
-	//DELETE
-	public void deleteProduct(){
+
+	// DELETE
+	public void deleteProduct() {
 		System.out.println("=================");
 		System.out.println("| 1.Delete pizza|");
 		System.out.println("| 2.Delete sauce|");
@@ -77,23 +83,51 @@ public class StartMenuAdmin {
 		System.out.println(" Enter option:");
 		scan = new Scanner(System.in);
 		int choice = scan.nextInt();
-		switch (choice){
-		case 1: PizzaFactory pf = new PizzaFactory();
-		        pf.getAllPizzas();
-		        pf.deletePizza();		        
-		        break;
-		case 2: SauceFactory sf = new SauceFactory();
-		        sf.getAllSauces();
-		        sf.deleteSauce();
-		        break;
-		case 3: DrinkFactory df = new DrinkFactory();
-		        df.getAllDrinks();
-		        df.deleteDrink();
-		        break;		         
+		switch (choice) {
+		case 1:
+			PizzaFactory pf = new PizzaFactory();
+			pf.getAllPizzas();
+			pf.deletePizza();
+			break;
+		case 2:
+			SauceFactory sf = new SauceFactory();
+			sf.getAllSauces();
+			sf.deleteSauce();
+			break;
+		case 3:
+			DrinkFactory df = new DrinkFactory();
+			df.getAllDrinks();
+			df.deleteDrink();
+			break;
 		}
 	}
-	//UPDATE(price)
-	public void updateProduct(){
-		
+
+	// UPDATE(price)
+	public void updateProduct() {
+		System.out.println("=================");
+		System.out.println("| 1.Update pizza|");
+		System.out.println("| 2.Update sauce|");
+		System.out.println("| 3.Update drink|");
+		System.out.println("=================");
+		System.out.println(" Enter option:");
+		scan = new Scanner(System.in);
+		int choice = scan.nextInt();
+		switch (choice) {
+		case 1:
+			PizzaFactory pf = new PizzaFactory();
+			pf.getAllPizzas();
+			pf.updatePizza();
+			break;
+		case 2:
+			SauceFactory sf = new SauceFactory();
+			sf.getAllSauces();
+			sf.updateSauce();
+			break;
+		case 3:
+			DrinkFactory df = new DrinkFactory();
+			df.getAllDrinks();
+			df.updateSauce();
+			break;
+		}
 	}
 }

@@ -1,6 +1,8 @@
 package dao;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.persistence.EntityManager;
 
@@ -11,7 +13,7 @@ import entities.Pizza;
 public class PizzaDAO implements DAO<Pizza>{
 
 	private EntityManager entityManager ;
-	
+	Scanner scan;
 	private OrderDAO orderDao;
 	
 	public PizzaDAO(){
@@ -41,8 +43,17 @@ public class PizzaDAO implements DAO<Pizza>{
 	}
 
 	@Override
-	public void update(Pizza t, String[] params) {
-		
+	public void update(int id) {
+		scan = new Scanner(System.in);
+		Pizza pizza = entityManager.find(Pizza.class, id);
+		System.out.println(pizza);
+		System.out.println("Update price: ");
+		BigDecimal newPrice = scan.nextBigDecimal();
+		pizza.setPrice(newPrice);
+		entityManager.getTransaction().begin();
+		entityManager.merge(pizza);
+		entityManager.getTransaction().commit();
+		System.out.println("UPDATED");
 	}
 
 	@Override
