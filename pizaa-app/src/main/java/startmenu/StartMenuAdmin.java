@@ -2,9 +2,12 @@ package startmenu;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
+
 import create.DrinkFactory;
+import create.OrderFactory;
 import create.PizzaFactory;
 import create.SauceFactory;
+import dao.OrderDAO;
 import dao.PizzaDAO;
 import entities.Pizza;
 import entities.User;
@@ -14,18 +17,19 @@ public class StartMenuAdmin {
 	private Pizza pizza;
 	private PizzaSizeEnum pizzaSize;
 	private PizzaDAO pizzaDAO;
-	private User user;
+	private User user;	
 	Scanner scan;
 
 	public StartMenuAdmin(User user) {
 		this.user = user;
 	}
-
+    //MAIN MENU FOR ADMIN
 	public void mainMenu() {
 		System.out.println("====================");
 		System.out.println("| 1.Add new product|");
 		System.out.println("| 2.Delete product |");
 		System.out.println("| 3.Update product |");
+		System.out.println("| 4.Process order  |");
 		System.out.println("====================");
 		System.out.println("  Enter option:");
 		scan = new Scanner(System.in);
@@ -41,6 +45,10 @@ public class StartMenuAdmin {
 			break;
 		case 3:
 			updateProduct();
+			mainMenu();
+			break;
+		case 4:
+			processOrder();
 			mainMenu();
 			break;
 		}
@@ -129,5 +137,12 @@ public class StartMenuAdmin {
 			df.updateSauce();
 			break;
 		}
+	}
+    //PROCESS
+	private void processOrder() {		
+		OrderFactory of = new OrderFactory(user);
+		of.getNotProcessedOrders();
+		of.processOrders();
+		System.out.println("-Orders Processed-");
 	}
 }

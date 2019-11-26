@@ -26,33 +26,34 @@ public class Order {
 	private Integer order_id;
 
 	@ManyToMany
-	@JoinTable(name = "order_pizza", joinColumns = { @JoinColumn(name = "order_id") }
-	                               , inverseJoinColumns = { @JoinColumn(name = "pizza_id") })
+	@JoinTable(name = "order_pizza", joinColumns = { @JoinColumn(name = "order_id") }, inverseJoinColumns = { @JoinColumn(name = "pizza_id") })
 	private Set<Pizza> pizzas = new HashSet<>();
 
 	@ManyToMany
-	@JoinTable(name = "order_sauce", joinColumns = { @JoinColumn(name = "order_id") }
-	                               , inverseJoinColumns = { @JoinColumn(name = "sauce_id") })
+	@JoinTable(name = "order_sauce", joinColumns = { @JoinColumn(name = "order_id") }, inverseJoinColumns = { @JoinColumn(name = "sauce_id") })
 	private Set<Sauce> sauces = new HashSet<>();
 
 	@ManyToMany
-	@JoinTable(name = "order_drink", joinColumns = { @JoinColumn(name = "order_id") }
-	                               , inverseJoinColumns = { @JoinColumn(name = "drink_id") })
+	@JoinTable(name = "order_drink", joinColumns = { @JoinColumn(name = "order_id") }, inverseJoinColumns = { @JoinColumn(name = "drink_id") })
 	private Set<Drink> drinks = new HashSet<>();
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
+	
+    @Column(name = "isProceeded")
+	private boolean isProceeded;
 
 	public Order() {
 	}
 
 	public Order(Set<Pizza> pizzas, Set<Sauce> sauces, Set<Drink> drinks,
-			User user) {
+			User user,boolean isProceeded ) {
 		this.pizzas = pizzas;
 		this.sauces = sauces;
 		this.drinks = drinks;
 		this.user = user;
+		this.isProceeded = isProceeded;
 	}
 
 	public Integer getId() {
@@ -95,11 +96,17 @@ public class Order {
 		this.user = user;
 	};
 
-	@Override
-	public String toString() {
-		return "order_id=" + order_id + ", pizzas=" + pizzas
-				+ ", sauces=" + sauces + ", drinks=" + drinks + ", user="
-				+ user + "]";
+	public Boolean getIsProceeded() {
+		return isProceeded;
 	}
 
+	public void setIsProceeded(Boolean isProceeded) {
+		this.isProceeded = isProceeded;
+	}
+
+	@Override
+	public String toString() {
+		return "order_id=" + order_id + ", pizzas=" + pizzas + ", sauces="
+				+ sauces + ", drinks=" + drinks + ", user=" + user + "]";
+	}
 }

@@ -15,4 +15,6 @@ public interface DAO<T> {
     void update(int id);
      
     void delete(int id);
+    
+    void processOrders(T t);
 }

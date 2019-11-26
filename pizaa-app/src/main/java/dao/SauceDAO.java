@@ -78,6 +78,12 @@ public class SauceDAO implements DAO<Sauce>{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void processOrders(Sauce t) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

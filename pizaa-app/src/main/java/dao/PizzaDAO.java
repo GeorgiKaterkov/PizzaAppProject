@@ -60,10 +60,10 @@ public class PizzaDAO implements DAO<Pizza>{
 	public void delete(int id) {
 		Pizza pizza = entityManager.find(Pizza.class, id);
 		entityManager.getTransaction().begin();		
-		Collection<Order> orders = orderDao.getAllBy(id);
+		/*Collection<Order> orders = orderDao.getAllBy(id);
 		for (Order order : orders) {
 			order.getPizzas().remove(pizza);
-		}
+		}*/
 		entityManager.remove(pizza);				
 		entityManager.getTransaction().commit();
 		System.out.println("PIZZA REMOVED");
@@ -73,6 +73,12 @@ public class PizzaDAO implements DAO<Pizza>{
 	public Collection<Pizza> getAllBy(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void processOrders(Pizza t) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

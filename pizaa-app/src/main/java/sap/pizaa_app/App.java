@@ -23,9 +23,9 @@ public class App {
 				
 		MainMenu mainMenu = new MainMenu();
 		mainMenu.mainMenu();
-		/*Pizza pizza = new Pizza("Margarita",PizzaSizeEnum.MEDIUM, new BigDecimal("10.50"));
+		/*User user = new User("Manol","1234",RoleEnum.USER );
 		entityManager.getTransaction().begin();
-		entityManager.persist(pizza);
+		entityManager.persist(user);
 		entityManager.getTransaction().commit();
 		System.out.println("DONE");*/
 	}
