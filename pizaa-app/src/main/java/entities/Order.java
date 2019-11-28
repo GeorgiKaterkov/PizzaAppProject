@@ -1,5 +1,6 @@
 package entities;
 
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +17,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Table(name = "pizza_store.order")
 @Entity
@@ -40,20 +43,25 @@ public class Order {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
-	
-    @Column(name = "isProceeded")
+
+	@Column(name = "isProceeded")
 	private boolean isProceeded;
+
+	// @Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "order_date")
+	private java.util.Date orderDate;
 
 	public Order() {
 	}
 
 	public Order(Set<Pizza> pizzas, Set<Sauce> sauces, Set<Drink> drinks,
-			User user,boolean isProceeded ) {
+			User user, boolean isProceeded, java.util.Date orderDate) {
 		this.pizzas = pizzas;
 		this.sauces = sauces;
 		this.drinks = drinks;
 		this.user = user;
 		this.isProceeded = isProceeded;
+		this.orderDate = orderDate;
 	}
 
 	public Integer getId() {
@@ -102,6 +110,14 @@ public class Order {
 
 	public void setIsProceeded(Boolean isProceeded) {
 		this.isProceeded = isProceeded;
+	}
+
+	public java.util.Date getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(java.util.Date orderDate) {
+		this.orderDate = orderDate;
 	}
 
 	@Override

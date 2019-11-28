@@ -23,7 +23,7 @@ public class App {
 				
 		MainMenu mainMenu = new MainMenu();
 		mainMenu.mainMenu();
-		/*User user = new User("Manol","1234",RoleEnum.USER );
+		/*User user = new User("Ivan","admin123",RoleEnum.ADMIN);
 		entityManager.getTransaction().begin();
 		entityManager.persist(user);
 		entityManager.getTransaction().commit();

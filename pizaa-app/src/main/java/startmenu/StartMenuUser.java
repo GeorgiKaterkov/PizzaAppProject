@@ -1,7 +1,9 @@
 package startmenu;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
@@ -93,7 +95,7 @@ public class StartMenuUser {
 	}
 
 	private void finishOrder() {
-		order = new Order(pizzas, sauces, drinks, user, true);
+		order = new Order(pizzas, sauces, drinks, user, true, new Date());
 		System.out.println(order.toString());
 		orderDAO = new OrderDAO();
 		orderDAO.save(order);
@@ -107,5 +109,6 @@ public class StartMenuUser {
 		System.out.println("Enter order id:");
 		int orderId = scan.nextInt();
 		of.createOrderFromOldOrder(orders,orderId);
+		System.out.println("-Order sended-");
 	}
 }

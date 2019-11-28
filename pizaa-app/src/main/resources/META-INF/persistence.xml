@@ -40,6 +40,8 @@
                       value = "hibernate.globally_quoted_identifiers=true"/>        
 
             <property name="hibernate.format_sql" value="false"/>
+            
+            <property name="hibernate.jdbc.time_zone" value="UTC"/>
 
         </properties>
         
