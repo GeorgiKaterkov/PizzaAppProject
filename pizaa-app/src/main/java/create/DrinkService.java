@@ -4,16 +4,17 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Scanner;
 
-import dao.DrinkDAO;
+import dao.DrinkDao;
+import dao.DrinkDaoImpl;
 import entities.Drink;
 
-public class DrinkFactory {
+public class DrinkService {
 	private Drink drink;
 	Scanner scan;
-	DrinkDAO drinkDAO;
+	DrinkDao drinkDAO;
 
-	public DrinkFactory() {
-		drinkDAO = new DrinkDAO();
+	public DrinkService() {
+		drinkDAO = new DrinkDaoImpl();
 	}
 
 	// user

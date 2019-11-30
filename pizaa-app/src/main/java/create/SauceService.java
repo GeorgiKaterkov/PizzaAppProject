@@ -2,19 +2,19 @@ package create;
 
 import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.List;
 import java.util.Scanner;
 
-import dao.SauceDAO;
+import dao.SauceDao;
+import dao.SauceDaoImpl;
 import entities.Sauce;
 
-public class SauceFactory {
+public class SauceService {
 	private Sauce sauce;
 	Scanner scan;
-	private SauceDAO sauceDAO;
+	private SauceDao sauceDAO;
 
-	public SauceFactory() {
-		sauceDAO = new SauceDAO();
+	public SauceService() {
+		sauceDAO = new SauceDaoImpl();
 	}
 
 	// USER

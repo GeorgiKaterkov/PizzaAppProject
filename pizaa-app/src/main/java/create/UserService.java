@@ -8,7 +8,7 @@ import configuration.JPAConfiguration;
 import entities.RoleEnum;
 import entities.User;
 
-public class UserFactory {
+public class UserService {
 
 	public User getUser() {
 		Scanner scan = new Scanner(System.in);

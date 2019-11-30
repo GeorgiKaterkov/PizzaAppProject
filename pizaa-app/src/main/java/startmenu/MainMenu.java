@@ -1,5 +1,7 @@
 package startmenu;
-import create.UserFactory;
+import java.text.ParseException;
+
+import create.UserService;
 import entities.Order;
 import entities.User;
 import entities.RoleEnum;
@@ -10,12 +12,17 @@ public class MainMenu {
 	Order order;
 
 	public void mainMenu(){
-		UserFactory userFactory = new UserFactory();		
-		User user = userFactory.getUser();
+		UserService userService = new UserService();		
+		User user = userService.getUser();
 		if(user.getRole().name().equals(RoleEnum.ADMIN.name())){
 			System.out.println("In StratMenuAdmin...");
 			StartMenuAdmin sma = new StartMenuAdmin(user);		
-			sma.mainMenu();
+			try {
+				sma.mainMenu();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {	
 			try{
 			System.out.println("In StartMenuUser...");			

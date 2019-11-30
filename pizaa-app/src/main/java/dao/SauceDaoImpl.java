@@ -8,80 +8,81 @@ import java.util.Scanner;
 import javax.persistence.EntityManager;
 
 import configuration.JPAConfiguration;
-import entities.Drink;
 import entities.Order;
 import entities.Sauce;
 
-public class DrinkDAO implements DAO<Drink>{
-	private static final String SELECT_DRINK_BY_ID = "FROM Drink d WHERE d.id = :id";
+public class SauceDaoImpl implements SauceDao{
+	
 	private EntityManager entityManager ;
-	private OrderDAO orderDao;
+	private OrderDao orderDao;
 	Scanner scan;
 	
-	public DrinkDAO(){
+	public SauceDaoImpl(){
 		JPAConfiguration config = new JPAConfiguration();
 		entityManager = config.getEntityManager();
-		orderDao = new OrderDAO();
+		orderDao = new OrderDaoImpl();
 	}
 
 	@Override
-	public Drink get(int id) {		
-		Drink drink = entityManager.createQuery(SELECT_DRINK_BY_ID, Drink.class)
+	public Sauce get(int id) {
+		Sauce sauce = entityManager.createQuery("FROM Sauce s WHERE s.id = :id", Sauce.class)
 				                   .setParameter("id", id).getSingleResult();
-		return drink;
+		return sauce;
 	}
 
 	@Override
-	public Collection<Drink> getAll() {
-		List<Drink> drinks = entityManager.createQuery("FROM Drink", Drink.class).getResultList();
-		return drinks;
+	public Collection<Sauce> getAll() {
+		List<Sauce> sauces = entityManager.createQuery("FROM Sauce", Sauce.class).getResultList();
+		return sauces;
 	}
 
 	@Override
-	public void save(Drink drink) {		
+	public void save(Sauce sauce) {
 		entityManager.getTransaction().begin();
-		entityManager.persist(drink);
+		entityManager.persist(sauce);
 		entityManager.getTransaction().commit();
-		System.out.println("DRINK SAVED");
+		System.out.println("SAUCE SAVED");
 	}
 
 	@Override
 	public void update(int id) {
 		scan = new Scanner(System.in);
-		Drink drink = entityManager.find(Drink.class, id);
-		System.out.println(drink);
+		Sauce sauce = entityManager.find(Sauce.class, id);
+		System.out.println(sauce);
 		System.out.println("Update price: ");
 		BigDecimal newPrice = scan.nextBigDecimal();
-		drink.setPrice(newPrice);
+		sauce.setPrice(newPrice);
 		entityManager.getTransaction().begin();
-		entityManager.merge(drink);
+		entityManager.merge(sauce);
 		entityManager.getTransaction().commit();	
-		System.out.println("UPDATED");		
+		System.out.println("UPDATED");
 	}
 
 	@Override
 	public void delete(int id) {
-		Drink drink = entityManager.find(Drink.class, id);
+		Sauce sauce = entityManager.find(Sauce.class, id);
 		entityManager.getTransaction().begin();
 		Collection<Order> orders = orderDao.getAllBy(id);
 		for (Order order : orders) {
-			order.getDrinks().remove(drink);
+			order.getSauces().remove(sauce);
 		}
-		entityManager.remove(drink);
+		entityManager.remove(sauce);
 		entityManager.getTransaction().commit();
-		System.out.println("PIZZA REMOVED");
+		System.out.println("SAUCE REMOVED");
 	}
 
 	@Override
-	public Collection<Drink> getAllBy(Integer id) {
+	public Collection<Sauce> getAllBy(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void processOrders(Drink t) {
+	public void processOrders(Sauce t) {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 
 }

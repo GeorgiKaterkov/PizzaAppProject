@@ -1,19 +1,17 @@
 package startmenu;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-import create.DrinkFactory;
-import create.OrderFactory;
-import create.PizzaFactory;
-import create.SauceFactory;
-import dao.OrderDAO;
+import create.DrinkService;
+import create.OrderService;
+import create.PizzaService;
+import create.SauceService;
+import dao.OrderDao;
+import dao.OrderDaoImpl;
 import entities.Drink;
 import entities.Order;
 import entities.Pizza;
@@ -28,7 +26,7 @@ public class StartMenuUser {
 	private Set<Sauce> sauces = new HashSet<>();
 	private Set<Drink> drinks = new HashSet<>();
 	private Order order;
-	private OrderDAO orderDAO;
+	private OrderDao orderDAO;
 
 	public StartMenuUser(User user) {
 		this.user = user;
@@ -71,7 +69,7 @@ public class StartMenuUser {
 	}
 
 	private Set<Pizza> getUserPizza() {
-		PizzaFactory pz = new PizzaFactory();
+		PizzaService pz = new PizzaService();
 		pz.getAllPizzas();
 		Pizza pizza = pz.choosePizza();
 		pizzas.add(pizza);
@@ -79,7 +77,7 @@ public class StartMenuUser {
 	}
 
 	public Set<Sauce> getUserSauce() {
-		SauceFactory sc = new SauceFactory();
+		SauceService sc = new SauceService();
 		sc.getAllSauces();
 		Sauce sauce = sc.chooseSauce();
 		sauces.add(sauce);
@@ -87,7 +85,7 @@ public class StartMenuUser {
 	}
 
 	public Set<Drink> getUserDrink() {
-		DrinkFactory dr = new DrinkFactory();
+		DrinkService dr = new DrinkService();
 		dr.getAllDrinks();
 		Drink drink = dr.chooseDrink();
 		drinks.add(drink);
@@ -97,18 +95,18 @@ public class StartMenuUser {
 	private void finishOrder() {
 		order = new Order(pizzas, sauces, drinks, user, true, new Date());
 		System.out.println(order.toString());
-		orderDAO = new OrderDAO();
+		orderDAO = new OrderDaoImpl();
 		orderDAO.save(order);
 	}
 	
 	private void repeatPreviousOrder() {
 		scan = new Scanner(System.in);
 		System.out.println("Your previuos orders:");
-		OrderFactory of = new OrderFactory(user);		
+		OrderService of = new OrderService(user);		
 		Collection<Order> orders = of.repeatPrevOrder();
 		System.out.println("Enter order id:");
 		int orderId = scan.nextInt();
-		of.createOrderFromOldOrder(orders,orderId);
+		of.createOrderFromOldOrder(orderId);
 		System.out.println("-Order sended-");
 	}
 }

@@ -1,28 +1,29 @@
 package dao;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
 import configuration.JPAConfiguration;
-import entities.Drink;
 import entities.Order;
-import entities.Pizza;
 
-public class OrderDAO implements DAO<Order> {
+public class OrderDaoImpl implements OrderDao {
 
 	private EntityManager entityManager;
 
-	public OrderDAO() {
+	public OrderDaoImpl() {
 		JPAConfiguration config = new JPAConfiguration();
 		entityManager = config.getEntityManager();
 	}
 
 	@Override
 	public Order get(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Order order = entityManager
+				.createQuery("FROM Order o WHERE o.id = :id", Order.class)
+				.setParameter("id", id).getSingleResult();
+		return order;
 	}
 
 	@Override
@@ -33,7 +34,17 @@ public class OrderDAO implements DAO<Order> {
 	}
 
 	@Override
-	public void save(Order order) {		
+	public Collection<Order> getAllByPeriod(Date from, Date to) {
+		Collection<Order> listOfOrders = entityManager
+				.createQuery(
+						"FROM Order o where (o.orderDate between :from and :to)",
+						Order.class).setParameter("from", from)
+				.setParameter("to", to).getResultList();
+		return listOfOrders;
+	}
+
+	@Override
+	public void save(Order order) {
 		System.out.println("IN SAVE METHOD");
 		entityManager.getTransaction().begin();
 		System.out.println("IN TRANSACTION");

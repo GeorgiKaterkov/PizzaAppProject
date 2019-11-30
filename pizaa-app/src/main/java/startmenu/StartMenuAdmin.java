@@ -1,22 +1,25 @@
 package startmenu;
 
-import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
 import java.util.Scanner;
 
-import create.DrinkFactory;
-import create.OrderFactory;
-import create.PizzaFactory;
-import create.SauceFactory;
-import dao.OrderDAO;
-import dao.PizzaDAO;
+import create.DrinkService;
+import create.OrderService;
+import create.PizzaService;
+import create.SauceService;
+import dao.PizzaDao;
+import entities.Order;
 import entities.Pizza;
-import entities.User;
 import entities.PizzaSizeEnum;
+import entities.User;
 
 public class StartMenuAdmin {
 	private Pizza pizza;
 	private PizzaSizeEnum pizzaSize;
-	private PizzaDAO pizzaDAO;
+	private PizzaDao pizzaDAO;
 	private User user;	
 	Scanner scan;
 
@@ -24,12 +27,13 @@ public class StartMenuAdmin {
 		this.user = user;
 	}
     //MAIN MENU FOR ADMIN
-	public void mainMenu() {
+	public void mainMenu() throws ParseException {
 		System.out.println("====================");
 		System.out.println("| 1.Add new product|");
 		System.out.println("| 2.Delete product |");
 		System.out.println("| 3.Update product |");
 		System.out.println("| 4.Process order  |");
+		System.out.println("| 5.Order enquiry  |");
 		System.out.println("====================");
 		System.out.println("  Enter option:");
 		scan = new Scanner(System.in);
@@ -51,9 +55,15 @@ public class StartMenuAdmin {
 			processOrder();
 			mainMenu();
 			break;
+		
+		case 5:
+			orderEnquiry();
+			mainMenu();
+			break;
 		}
 	}
 
+	
 	// ADD
 	public void addNewProduct() {
 		System.out.println("==============");
@@ -66,15 +76,15 @@ public class StartMenuAdmin {
 		int choice = scan.nextInt();
 		switch (choice) {
 		case 1:
-			PizzaFactory pf = new PizzaFactory();
+			PizzaService pf = new PizzaService();
 			pf.addNewPizza();
 			break;
 		case 2:
-			SauceFactory sf = new SauceFactory();
+			SauceService sf = new SauceService();
 			sf.addNewSauce();
 			break;
 		case 3:
-			DrinkFactory df = new DrinkFactory();
+			DrinkService df = new DrinkService();
 			df.addNewDrink();
 			break;
 
@@ -93,17 +103,17 @@ public class StartMenuAdmin {
 		int choice = scan.nextInt();
 		switch (choice) {
 		case 1:
-			PizzaFactory pf = new PizzaFactory();
+			PizzaService pf = new PizzaService();
 			pf.getAllPizzas();
 			pf.deletePizza();
 			break;
 		case 2:
-			SauceFactory sf = new SauceFactory();
+			SauceService sf = new SauceService();
 			sf.getAllSauces();
 			sf.deleteSauce();
 			break;
 		case 3:
-			DrinkFactory df = new DrinkFactory();
+			DrinkService df = new DrinkService();
 			df.getAllDrinks();
 			df.deleteDrink();
 			break;
@@ -122,17 +132,17 @@ public class StartMenuAdmin {
 		int choice = scan.nextInt();
 		switch (choice) {
 		case 1:
-			PizzaFactory pf = new PizzaFactory();
+			PizzaService pf = new PizzaService();
 			pf.getAllPizzas();
 			pf.updatePizza();
 			break;
 		case 2:
-			SauceFactory sf = new SauceFactory();
+			SauceService sf = new SauceService();
 			sf.getAllSauces();
 			sf.updateSauce();
 			break;
 		case 3:
-			DrinkFactory df = new DrinkFactory();
+			DrinkService df = new DrinkService();
 			df.getAllDrinks();
 			df.updateSauce();
 			break;
@@ -140,9 +150,30 @@ public class StartMenuAdmin {
 	}
     //PROCESS
 	private void processOrder() {		
-		OrderFactory of = new OrderFactory(user);
+		OrderService of = new OrderService(user);
 		of.getNotProcessedOrders();
 		of.processOrders();
 		System.out.println("-Orders Processed-");
 	}
+	//ENQUIRY OF ORDERS BY DATE
+	private void orderEnquiry() throws ParseException {
+		OrderService of = new OrderService(user);
+		scan = new Scanner(System.in);
+		System.out.println("Date format must be - dd/mm/yyyy");
+		System.out.println("Enter first date: ");
+		String dateFromInput = scan.nextLine();
+		System.out.println("Enter last date: ");
+		String dateToInput = scan.nextLine();
+		
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		Date  dateFrom  = format.parse(dateFromInput);
+		Date  dateTo  = format.parse(dateToInput);
+		Collection<Order> orderEnquiries = of.orderEnquiry(dateFrom, dateTo);
+		System.out.println("Enquiry of orders between " + dateFrom + " and " + dateTo);
+		System.out.println("=======================================================================================");
+		for (Order order : orderEnquiries) {
+			System.out.println(order.toString());
+		}
+	}
+
 }

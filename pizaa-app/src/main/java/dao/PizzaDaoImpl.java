@@ -10,16 +10,16 @@ import configuration.JPAConfiguration;
 import entities.Order;
 import entities.Pizza;
 
-public class PizzaDAO implements DAO<Pizza>{
+public class PizzaDaoImpl implements PizzaDao{
 
 	private EntityManager entityManager ;
 	Scanner scan;
-	private OrderDAO orderDao;
+	private OrderDao orderDao;
 	
-	public PizzaDAO(){
+	public PizzaDaoImpl(){
 		JPAConfiguration config = new JPAConfiguration();
 		entityManager = config.getEntityManager();
-		orderDao = new OrderDAO();
+		orderDao = new OrderDaoImpl();
 	}
 	
 	@Override

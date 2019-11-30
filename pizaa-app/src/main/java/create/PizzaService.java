@@ -1,28 +1,21 @@
 package create;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Scanner;
 
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.Order;
-
-import org.hibernate.dialect.Database;
-
-import configuration.JPAConfiguration;
+import dao.PizzaDao;
+import dao.PizzaDaoImpl;
 import entities.Pizza;
 import entities.PizzaSizeEnum;
-import dao.PizzaDAO;
-public class PizzaFactory {
+public class PizzaService {
 	private PizzaSizeEnum pizzaSize;
 	private Pizza pizza;
-    private PizzaDAO pizzaDAO ;
+    private PizzaDao pizzaDAO ;
     Scanner scan;
     
-    public PizzaFactory(){
-    	pizzaDAO = new PizzaDAO();
+    public PizzaService(){
+    	pizzaDAO = new PizzaDaoImpl();
     };
 	//USER
 	public void getAllPizzas(){	
