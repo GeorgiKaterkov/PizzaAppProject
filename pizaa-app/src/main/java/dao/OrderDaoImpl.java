@@ -44,13 +44,11 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public void save(Order order) {
-		System.out.println("IN SAVE METHOD");
-		entityManager.getTransaction().begin();
-		System.out.println("IN TRANSACTION");
-		entityManager.persist(order);
-		System.out.println("AFTER PERSIST");
+	public void save(Order order) {		
+		entityManager.getTransaction().begin();		
+		entityManager.persist(order);		
 		entityManager.getTransaction().commit();
+		System.out.println("- ORDER SAVED -");
 	}
 
 	@Override
@@ -74,8 +72,7 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public void processOrders(Order order) {
-		// order = entityManager.find(Order.class, order);
+	public void processOrders(Order order) {		
 		order.setIsProceeded(false);
 		entityManager.getTransaction().begin();
 		entityManager.merge(order);

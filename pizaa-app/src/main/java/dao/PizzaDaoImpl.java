@@ -59,11 +59,7 @@ public class PizzaDaoImpl implements PizzaDao{
 	@Override
 	public void delete(int id) {
 		Pizza pizza = entityManager.find(Pizza.class, id);
-		entityManager.getTransaction().begin();		
-		/*Collection<Order> orders = orderDao.getAllBy(id);
-		for (Order order : orders) {
-			order.getPizzas().remove(pizza);
-		}*/
+		entityManager.getTransaction().begin();			
 		entityManager.remove(pizza);				
 		entityManager.getTransaction().commit();
 		System.out.println("PIZZA REMOVED");

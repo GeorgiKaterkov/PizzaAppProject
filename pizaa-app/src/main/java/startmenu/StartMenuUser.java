@@ -1,5 +1,6 @@
 package startmenu;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -92,9 +93,21 @@ public class StartMenuUser {
 		return drinks;
 	}
 
+	
 	private void finishOrder() {
 		order = new Order(pizzas, sauces, drinks, user, true, new Date());
 		System.out.println(order.toString());
+		BigDecimal sum = new BigDecimal("0");		
+		for(Pizza pizza : pizzas){
+			sum = sum.add(pizza.getPrice());							
+		}
+		for(Sauce sauce : sauces){
+			sum = sum.add(sauce.getPrice());
+		}
+		for(Drink drink : drinks){
+			sum = sum.add(drink.getPrice());
+		}
+		System.out.println("Price of order: " + sum + "lv ");
 		orderDAO = new OrderDaoImpl();
 		orderDAO.save(order);
 	}
