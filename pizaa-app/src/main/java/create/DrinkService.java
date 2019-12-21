@@ -4,9 +4,12 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Scanner;
 
+import javax.persistence.PersistenceException;
+
 import dao.DrinkDao;
 import dao.DrinkDaoImpl;
 import entities.Drink;
+import exceptions.InputMismatchPriceException;
 
 public class DrinkService {
 	private Drink drink;
@@ -38,6 +41,7 @@ public class DrinkService {
 
 	// admin
 	public void addNewDrink() {
+		try {
 		scan = new Scanner(System.in);
 		System.out.println("Enter drink name: ");
 		String name = scan.next();
@@ -45,6 +49,9 @@ public class DrinkService {
 		BigDecimal price = scan.nextBigDecimal();
 		drink = new Drink(name, price);
 		drinkDAO.save(drink);
+		}catch(PersistenceException e) {
+			throw new InputMismatchPriceException(e.getMessage());
+		}
 	}
 
 	// admin
@@ -56,7 +63,7 @@ public class DrinkService {
 	}
 
 	// ADMIN
-	public void updateSauce() {
+	public void updateDrink() {
 		scan = new Scanner(System.in);
 		System.out.println("Enter drink id: ");
 		int choice = scan.nextInt();

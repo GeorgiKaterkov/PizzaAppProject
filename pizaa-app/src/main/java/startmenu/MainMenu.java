@@ -1,6 +1,10 @@
 package startmenu;
-import java.text.ParseException;
 
+import java.text.ParseException;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+import create.UserRegistration;
 import create.UserService;
 import entities.Order;
 import entities.User;
@@ -8,29 +12,35 @@ import entities.RoleEnum;
 import exceptions.UserInputException;
 
 public class MainMenu {
-	
+	Scanner scan;
 	Order order;
 
-	public void mainMenu(){
-		UserService userService = new UserService();		
-		User user = userService.getUser();
-		if(user.getRole().name().equals(RoleEnum.ADMIN.name())){
-			System.out.println("In StratMenuAdmin...");
-			StartMenuAdmin sma = new StartMenuAdmin(user);		
-			try {
-				sma.mainMenu();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else {	
-			try{
-			System.out.println("In StartMenuUser...");			
-			StartMenuUser smu = new StartMenuUser(user);			
-			smu.mainMenu();			
-			}catch(UserInputException e){
-				System.out.println(e.getErrorMessage());
-			}
+	public void mainMenu() {
+		System.out.println("====================");
+		System.out.println("| 1.Login          |");
+		System.out.println("| 2.Registration   |");
+		System.out.println("====================");
+		System.out.println("  Enter option:");
+		scan = new Scanner(System.in);
+		try {
+		int choice = scan.nextInt();
+		switch (choice) {
+		case 1:
+			UserService userService = new UserService();
+			userService.login();			
+			break;
+		case 2:
+			UserRegistration userRegistration = new UserRegistration();
+			userRegistration.register();
+			mainMenu();
+			break;
+		default:
+			System.out.println("Wrong option entered!");
+			mainMenu();
+		}	
+		}catch(InputMismatchException e) {
+			System.out.println("Error option");
 		}
 	}
+	
 }

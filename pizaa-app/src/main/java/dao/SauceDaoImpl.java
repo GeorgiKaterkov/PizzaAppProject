@@ -6,18 +6,20 @@ import java.util.List;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 
 import configuration.JPAConfiguration;
 import entities.Order;
 import entities.Sauce;
+import exceptions.NoSuchSauceException;
 
-public class SauceDaoImpl implements SauceDao{
-	
-	private EntityManager entityManager ;
+public class SauceDaoImpl implements SauceDao {
+
+	private EntityManager entityManager;
 	private OrderDao orderDao;
 	Scanner scan;
-	
-	public SauceDaoImpl(){
+
+	public SauceDaoImpl() {
 		JPAConfiguration config = new JPAConfiguration();
 		entityManager = config.getEntityManager();
 		orderDao = new OrderDaoImpl();
@@ -25,9 +27,13 @@ public class SauceDaoImpl implements SauceDao{
 
 	@Override
 	public Sauce get(int id) {
-		Sauce sauce = entityManager.createQuery("FROM Sauce s WHERE s.id = :id", Sauce.class)
-				                   .setParameter("id", id).getSingleResult();
-		return sauce;
+		try {
+			Sauce sauce = entityManager.createQuery("FROM Sauce s WHERE s.id = :id", Sauce.class).setParameter("id", id)
+					.getSingleResult();
+			return sauce;
+		} catch (PersistenceException e) {
+			throw new NoSuchSauceException(e.getMessage());
+		}
 	}
 
 	@Override
@@ -46,16 +52,24 @@ public class SauceDaoImpl implements SauceDao{
 
 	@Override
 	public void update(int id) {
-		scan = new Scanner(System.in);
-		Sauce sauce = entityManager.find(Sauce.class, id);
-		System.out.println(sauce);
-		System.out.println("Update price: ");
-		BigDecimal newPrice = scan.nextBigDecimal();
-		sauce.setPrice(newPrice);
-		entityManager.getTransaction().begin();
-		entityManager.merge(sauce);
-		entityManager.getTransaction().commit();	
-		System.out.println("UPDATED");
+		try {
+			scan = new Scanner(System.in);
+			Sauce sauce = entityManager.find(Sauce.class, id);
+
+			if (!sauce.equals(null)) {
+				System.out.println(sauce);
+				System.out.println("Update price: ");
+				BigDecimal newPrice = scan.nextBigDecimal();
+				sauce.setPrice(newPrice);
+				entityManager.getTransaction().begin();
+				entityManager.merge(sauce);
+				entityManager.getTransaction().commit();
+				System.out.println("UPDATED");
+			} else
+				System.out.println("Invalid sauce's id\nTry again");
+		} catch (NullPointerException e) {
+			System.out.println("Invalid sauce\nTry again");
+		}
 	}
 
 	@Override
@@ -80,9 +94,7 @@ public class SauceDaoImpl implements SauceDao{
 	@Override
 	public void processOrders(Sauce t) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	
 
 }

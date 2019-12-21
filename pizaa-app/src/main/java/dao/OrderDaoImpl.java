@@ -60,7 +60,7 @@ public class OrderDaoImpl implements OrderDao {
 	@Override
 	public Collection<Order> getAll() {
 		List<Order> orders = entityManager.createQuery(
-				"FROM Order o WHERE o.isProceeded = 1", Order.class)
+				"FROM Order o WHERE o.isProceeded = 0", Order.class)
 				.getResultList();
 		return orders;
 	}
@@ -73,7 +73,7 @@ public class OrderDaoImpl implements OrderDao {
 
 	@Override
 	public void processOrders(Order order) {		
-		order.setIsProceeded(false);
+		order.setIsProceeded(true);
 		entityManager.getTransaction().begin();
 		entityManager.merge(order);
 		entityManager.getTransaction().commit();

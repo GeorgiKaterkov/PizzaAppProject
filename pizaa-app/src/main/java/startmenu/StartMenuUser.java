@@ -18,7 +18,8 @@ import entities.Order;
 import entities.Pizza;
 import entities.Sauce;
 import entities.User;
-import exceptions.UserInputException;
+import exceptions.*;
+import exceptions.DrinkExceptions.NoSuchDrinkException;
 
 public class StartMenuUser {
 	private User user;
@@ -33,8 +34,7 @@ public class StartMenuUser {
 		this.user = user;
 	}
 
-	public void mainMenu() {
-		// System.out.println("1.Choose pizza\n2.Choose sauce\n3.Choose drink\n4.Finish Order\nEnter option:");
+	public void mainMenu() {		
 		System.out.println("============================");
 		System.out.println("| 1.Choose pizza           |");
 		System.out.println("| 2.Choose sauce           |");
@@ -47,16 +47,31 @@ public class StartMenuUser {
 		int choice = scan.nextInt();
 		switch (choice) {
 		case 1:
+			try {
 			pizzas = getUserPizza();
 			mainMenu();
+			}catch(NoSuchPizzaException e) {
+				System.out.println(e.getErrorMessage());
+				mainMenu();
+			}
 			break;
 		case 2:
+			try {
 			sauces = getUserSauce();
 			mainMenu();
+			}catch(NoSuchSauceException e) {
+				System.out.println(e.getErrorMessage());
+				mainMenu();
+			}
 			break;
 		case 3:
-			drinks = getUserDrink();
-			mainMenu();
+			try {
+				drinks = getUserDrink();
+				mainMenu();
+			} catch (NoSuchDrinkException e) {
+				System.out.println(e.getErrorMessage());
+				mainMenu();
+			}
 			break;
 		case 4:
 			finishOrder();
@@ -65,7 +80,7 @@ public class StartMenuUser {
 			repeatPreviousOrder();
 			break;
 		default:
-			throw new UserInputException("Wrong option entered !");
+			throw new UserInputException("Wrong option entered !");			
 		}
 	}
 
@@ -93,29 +108,28 @@ public class StartMenuUser {
 		return drinks;
 	}
 
-	
 	private void finishOrder() {
-		order = new Order(pizzas, sauces, drinks, user, true, new Date());
+		order = new Order(pizzas, sauces, drinks, user, false, new Date());
 		System.out.println(order.toString());
-		BigDecimal sum = new BigDecimal("0");		
-		for(Pizza pizza : pizzas){
-			sum = sum.add(pizza.getPrice());							
+		BigDecimal sum = new BigDecimal("0");
+		for (Pizza pizza : pizzas) {
+			sum = sum.add(pizza.getPrice());
 		}
-		for(Sauce sauce : sauces){
+		for (Sauce sauce : sauces) {
 			sum = sum.add(sauce.getPrice());
 		}
-		for(Drink drink : drinks){
+		for (Drink drink : drinks) {
 			sum = sum.add(drink.getPrice());
 		}
 		System.out.println("Price of order: " + sum + "lv ");
 		orderDAO = new OrderDaoImpl();
 		orderDAO.save(order);
 	}
-	
+
 	private void repeatPreviousOrder() {
 		scan = new Scanner(System.in);
 		System.out.println("Your previuos orders:");
-		OrderService of = new OrderService(user);		
+		OrderService of = new OrderService(user);
 		Collection<Order> orders = of.repeatPrevOrder();
 		System.out.println("Enter order id:");
 		int orderId = scan.nextInt();
