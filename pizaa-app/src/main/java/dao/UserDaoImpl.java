@@ -50,7 +50,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void changeUserToAdmin(String username) {
-		User user = entityManager.createQuery(SELECT_USER_BY_USERNAME, User.class)
+		User user = entityManager.createQuery(SELECT_USER_BY_USERNAME , User.class)
 				.setParameter("username", username).getSingleResult();
 		user.setRole(RoleEnum.ADMIN);
 		entityManager.getTransaction().begin();
