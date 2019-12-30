@@ -9,19 +9,19 @@ import java.util.Scanner;
 
 import javax.persistence.PersistenceException;
 
-import create.DrinkService;
-import create.OrderService;
-import create.PizzaService;
-import create.SauceService;
-import create.UserService;
-import dao.PizzaDao;
-import entities.Order;
-import entities.Pizza;
-import entities.PizzaSizeEnum;
-import entities.User;
-import exceptions.InputMismatchPriceException;
-import exceptions.UnparseableDataException;
-import exceptions.DrinkExceptions.NotSavedDrinkException;
+import com.pizza.dao.PizzaDao;
+import com.pizza.exceptions.InputMismatchPriceException;
+import com.pizza.exceptions.UnparseableDataException;
+import com.pizza.exceptions.drinkexceptions.NotSavedDrinkException;
+import com.pizza.model.Order;
+import com.pizza.model.Pizza;
+import com.pizza.model.PizzaSizeEnum;
+import com.pizza.model.User;
+import com.pizza.services.DrinkService;
+import com.pizza.services.OrderService;
+import com.pizza.services.PizzaService;
+import com.pizza.services.SauceService;
+import com.pizza.services.UserService;
 
 public class StartMenuAdmin {
 	private static final String dateRegex = "^[0-9]{2}[-|\\\\/]{1}[0-9]{2}[-|\\\\/]{1}[0-9]{4}$";
@@ -247,8 +247,8 @@ public class StartMenuAdmin {
 	}
 
 	public void changeToAdmin() {
-		UserService userService = new UserService();
-		userService.changeUserToAdmin();
+//		UserService userService = new UserService();
+//		userService.changeUserToAdmin();
 	}
 
 }

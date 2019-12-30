@@ -7,19 +7,19 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-import create.DrinkService;
-import create.OrderService;
-import create.PizzaService;
-import create.SauceService;
-import dao.OrderDao;
-import dao.OrderDaoImpl;
-import entities.Drink;
-import entities.Order;
-import entities.Pizza;
-import entities.Sauce;
-import entities.User;
-import exceptions.*;
-import exceptions.DrinkExceptions.NoSuchDrinkException;
+import com.pizza.dao.OrderDao;
+import com.pizza.dao.OrderDaoImpl;
+import com.pizza.exceptions.*;
+import com.pizza.exceptions.drinkexceptions.NoSuchDrinkException;
+import com.pizza.model.Drink;
+import com.pizza.model.Order;
+import com.pizza.model.Pizza;
+import com.pizza.model.Sauce;
+import com.pizza.model.User;
+import com.pizza.services.DrinkService;
+import com.pizza.services.OrderService;
+import com.pizza.services.PizzaService;
+import com.pizza.services.SauceService;
 
 public class StartMenuUser {
 	private User user;
