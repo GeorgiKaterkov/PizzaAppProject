@@ -11,4 +11,10 @@ public interface DrinkService {
 
 	void addNewDrink(String name, BigDecimal price);
 
+	void deleteDrink(Integer id);
+
+	void updateDrink(Integer id, BigDecimal price);
+
+	DrinkBean toShoppingCart(Integer id, Integer quantity);
+
 }

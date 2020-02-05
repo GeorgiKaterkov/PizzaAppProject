@@ -8,6 +8,7 @@ public class PizzaBean {
 	private String namePizza;
 	private String pizzaSize;
 	private BigDecimal price;
+	private int quantity=0;
 	
 	public int getPizzaId() {
 		return pizzaId;
@@ -33,6 +34,17 @@ public class PizzaBean {
 	}
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	@Override
+	public String toString() {
+		return "PizzaBean [pizzaId=" + pizzaId + ", namePizza=" + namePizza + ", pizzaSize=" + pizzaSize + ", price="
+				+ price + "]";
 	}
 		
 }

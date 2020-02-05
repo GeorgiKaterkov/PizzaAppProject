@@ -1,5 +1,6 @@
 package com.pizza.dao;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 
 import com.pizza.model.Sauce;
@@ -14,7 +15,7 @@ public interface SauceDao {
     
     void save(Sauce sauce);
      
-    void update(int id);
+    void update(int id,BigDecimal price);
      
     void delete(int id);
     

@@ -29,6 +29,10 @@ public class Pizza {
 	private BigDecimal price;
 	@ManyToMany(mappedBy = "pizzas")
 	private Set<Order> orders = new HashSet<>();
+	/*
+	 * @ManyToMany(mappedBy = "pizzas") private Set<ShoppingCartDiscard>
+	 * shoppingCart = new HashSet<>();
+	 */
 
 	public Pizza() {
 	}
@@ -77,8 +81,9 @@ public class Pizza {
 
 	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
-	}
+	}	
 
+	
 	@Override
 	public String toString() {
 		return "Option: " + id + " - " + namePizza + " - " + pizzaSize + " - "

@@ -25,6 +25,10 @@ public class Sauce {
 	private BigDecimal price;	
 	@ManyToMany(mappedBy = "sauces")
 	private Set<Order> orders = new HashSet<>();
+	/*
+	 * @ManyToMany(mappedBy = "sauces") private Set<ShoppingCartDiscard>
+	 * shoppingCart = new HashSet<>();
+	 */
 	
 	public Sauce(){};
 	
@@ -51,7 +55,6 @@ public class Sauce {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-
 	
 	public Set<Order> getOrders() {
 		return orders;
@@ -60,7 +63,8 @@ public class Sauce {
 	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
 	}
-
+	
+	
 	@Override
 	public String toString() {
 		return "Option: " + id + " - " + sauceName + " - "

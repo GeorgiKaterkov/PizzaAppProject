@@ -12,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pizza.beans.DrinkBean;
+import com.pizza.beans.PizzaBean;
 import com.pizza.dao.DrinkDao;
 import com.pizza.dao.DrinkDaoImpl;
 import com.pizza.exceptions.InputMismatchPriceException;
 import com.pizza.model.Drink;
+import com.pizza.model.Pizza;
 @Service
 public class DrinkServiceImpl implements DrinkService {
 	private Drink drink;
@@ -23,6 +25,16 @@ public class DrinkServiceImpl implements DrinkService {
 	@Autowired
 	DrinkDao drinkDAO;
 	
+	
+	@Override
+	public DrinkBean toShoppingCart(Integer id, Integer quantity) {
+		Drink drink = drinkDAO.get(id);
+		DrinkBean bean = new DrinkBean();				
+		bean.setDrinkName(drink.getDrinkName());
+		bean.setPrice(drink.getPrice());		
+		bean.setQuantity(quantity);		
+		return bean;
+	}
 
 	@Override
 	public List<DrinkBean> getAllDrinks() {
@@ -55,20 +67,13 @@ public class DrinkServiceImpl implements DrinkService {
 		
 	}
 
-	// admin
-	public void deleteDrink() {
-		scan = new Scanner(System.in);
-		System.out.println("Enter drink id: ");
-		int choice = scan.nextInt();
-		drinkDAO.delete(choice);
+	@Override
+	public void deleteDrink(Integer id) {		
+		drinkDAO.delete(id);
 	}
 
-	// ADMIN
-	public void updateDrink() {
-		scan = new Scanner(System.in);
-		System.out.println("Enter drink id: ");
-		int choice = scan.nextInt();
-		System.out.println("Choice sended");
-		drinkDAO.update(choice);
+	@Override
+	public void updateDrink(Integer id,BigDecimal price) {		
+		drinkDAO.update(id,price);
 	}
 }

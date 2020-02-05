@@ -14,8 +14,7 @@
 				
 				<c:forEach items="${pizzas}" var="pizza" varStatus="status">
 				
-				<input type="radio" name="namePizza">${pizza.namePizza}<br>  
-				
+				<input type="radio" name="pizzaId" value="${pizza.pizzaId}"><br>${pizza.namePizza} / ${pizza.pizzaSize}<br>  				
 				</c:forEach>
 				<button type="submit" name="button">
 					<b>DELETE</b>

@@ -2,6 +2,7 @@ package com.pizza.dao;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import com.pizza.model.Order;
 
@@ -21,5 +22,5 @@ public interface OrderDao {
     
     void processOrders(Order order);
 
-	Collection<Order> getAllByPeriod(Date from, Date to);
+	List<Order> getAllByPeriod(Date from, Date to);
 }

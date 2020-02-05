@@ -1,35 +1,38 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <html>
 <head>
 
 </head>
 
 <body>
-	<form method="post">
+	<form method="post" action="#">
 		<table align="center">
 			<tr>
-				<th>Name</th>
-				<th>Size</th>
-				<th>Price</th>
-				<th>Quantity</th>
-				<th>Choice</th>
+				<th>Name</th>				
+				<th>     </th>
 			</tr>
 			<c:forEach items="${pizzas}" var="pizza" varStatus="status">
 				<tr>
-					<td align="center">${pizza.namePizza}</td>
-					<td align="center">${pizza.pizzaSize}</td>
-					<td align="center">${pizza.price}</td>
-					<td align="center"><input type="number" name="quantity"
-						min="1" max="5"></td>
-					<input type="hidden" id="pizzaId" name="pizzaId"
-						value="${pizza.pizzaId}">
-					<td align="center"><button type="submit">ADD</button></td>
+					<td align="center">${pizza.namePizza}</td>			
+					
+					<td align="center">
+					<c:url value="/basket/pizza" var="addToBasketUrl">
+						<c:param name="namePizza"  value="${pizza.namePizza}"/>	
+						</c:url>
+					<a href='<c:out value="${addToBasketUrl}"/>' type="submit">ENTER</a>
+					</td>
 				</tr>
 			</c:forEach>
 		</table>
 	</form>
 </body>
 <style>
+
+a {
+  color: black;
+}
+
 table tr:nth-child(even) {
 	background-color: #eee;
 }
@@ -51,12 +54,6 @@ table, th, td, button {
 
 table {
 	width: 25%;
-}
-
-button {
-	color: black;
-	background-color: #a6a6a6;
-	border-color: transparent;
 }
 
 input {

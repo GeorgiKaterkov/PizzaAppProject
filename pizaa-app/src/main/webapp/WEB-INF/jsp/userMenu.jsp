@@ -4,17 +4,19 @@
 
 </head>
 <body>
-	<div >
+   <form method = "get" action="/userMenu">
+	<div>
 		<h2 style="font-family: courier;" align="center">MENU</h2>
 		<ul>
 			<li><a href="/pizzas">Choose pizza</a></li>
 			<li><a href="/sauces">Choose sauces</a></li>
 			<li><a href="/drinks">Choose drinks</a></li>
-			<li><a href="/order">Finish order</a></li>
+			<li><a href="/shoppingCart-detail-page">Shopping cart</a></li>
 			<li><a href="/prevoiusOrder">Repeat a previous order</a></li>
-		</ul>		
-		
+		</ul>
+
 	</div>
+    </form>
 </body>
 
 <style>
@@ -51,7 +53,8 @@ div {
 	border: transparent;
 	padding: 30px;
 	background-color: #1a0100;
-    background-image: url("https://transparenttextures.com/patterns/tileable-wood-colored.png");
+	background-image:
+		url("https://transparenttextures.com/patterns/tileable-wood-colored.png");
 }
 </style>
 </html>

@@ -37,8 +37,8 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public Collection<Order> getAllByPeriod(Date from, Date to) {
-		Collection<Order> listOfOrders = entityManager
+	public List<Order> getAllByPeriod(Date from, Date to) {
+		List<Order> listOfOrders = entityManager
 				.createQuery(
 						"FROM Order o where (o.orderDate between :from and :to)",
 						Order.class).setParameter("from", from)

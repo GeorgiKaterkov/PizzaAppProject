@@ -71,10 +71,8 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 	
-	public void changeUserToAdmin() {
-		System.out.println("Enter username that will be changed: ");
-		scan = new Scanner(System.in);
-		String username = scan.nextLine();
+	@Override
+	public void changeUserToAdmin(String username) {		
 		userDao.changeUserToAdmin(username);
 		
 	}

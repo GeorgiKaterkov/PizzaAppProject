@@ -21,15 +21,15 @@ public class DeletePizzaController {
 
 	@RequestMapping(value = "/deletePizza", method = { RequestMethod.GET, RequestMethod.POST })
 	public String showAddingField(ModelMap model) {
-		List<PizzaBean> pizzas = (List<PizzaBean>) pizzaService.getAllPizzas();
+		List<PizzaBean> pizzas = (List<PizzaBean>) pizzaService.getAllPizzasForDeleting();
 
 		model.put("pizzas", pizzas);
 		return "choosePizzaToDelete";
 	}
 
 	@RequestMapping(value= "/choosePizzaToDelete" , method = {RequestMethod.GET, RequestMethod.POST})
-	public void pizzaChoice(ModelMap model,@RequestParam String namePizza) {
+	public void pizzaChoice(ModelMap model,@RequestParam Integer pizzaId) {
 		
-			pizzaService.deletePizza(namePizza);
+			pizzaService.deletePizza(pizzaId);
 	}
 }

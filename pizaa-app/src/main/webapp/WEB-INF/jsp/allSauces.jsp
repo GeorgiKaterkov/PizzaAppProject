@@ -1,30 +1,36 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>  
 <html>
 <head>
 
 </head>
 <body>
-	<form method="post">
+	<form:form method="post" action="/sauceChoice" modelAttribute="bean">
 		<table align="center">
 			<tr>
-				<th>Name</th>				
-				<th>Price</th>
+				<th>Name/Price</th>				
 				<th>Quantity</th>
 				<th>Choice</th>
 			</tr>
-			<c:forEach items="${sauces}" var="sauce" varStatus="status">
-				<tr>
-					<td align="center">${sauce.sauceName}</td>					
-					<td align="center">${sauce.price}</td>
-					<td align="center"><input type="number" name="quantity"
-						min="1" max="5"></td>
-					<input type="hidden" id="sauceId" name="sauceId"
-						value="${sauce.id}">
-					<td align="center"><button type="submit">ADD</button></td>
-				</tr>
-			</c:forEach>
+			<tr>
+				<td><form:select path="id">
+					<form:option value="0" label="--Select sauce" />
+					<form:options itemValue="sauceId" itemLabel="name" items="${sauceVariaty}"/>						
+				</form:select>
+				</td>
+				<td>
+				<input type="number" name="quantity" min="1" max="5">
+				</td>
+				<td>
+				<button type = "submit">ADD</button>
+				</td>
+			</tr>
+
 		</table>
-	</form>
+	</form:form>
 </body>
 <style>
 table tr:nth-child(even) {
@@ -38,7 +44,6 @@ table tr:nth-child(odd) {
 table th {
 	background-color: #ffcc00;
 	color: white;
-	
 }
 
 table, th, td, button {

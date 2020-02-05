@@ -68,15 +68,11 @@ public class DrinkDaoImpl implements DrinkDao {
 	}
 
 	@Override
-	public void update(int id) {
-		try {
-			scan = new Scanner(System.in);
+	public void update(int id, BigDecimal price) {
+		try {		
 			Drink drink = entityManager.find(Drink.class, id);
-			if (!drink.equals(null)) {
-				System.out.println(drink);
-				System.out.println("Update price: ");
-				BigDecimal newPrice = scan.nextBigDecimal();
-				drink.setPrice(newPrice);
+			if (!drink.equals(null)) {				
+				drink.setPrice(price);
 				entityManager.getTransaction().begin();
 				entityManager.merge(drink);
 				entityManager.getTransaction().commit();
@@ -93,13 +89,13 @@ public class DrinkDaoImpl implements DrinkDao {
 		try {
 			Drink drink = entityManager.find(Drink.class, id);
 			entityManager.getTransaction().begin();
-			Collection<Order> orders = orderDao.getAllBy(id);
-			for (Order order : orders) {
-				order.getDrinks().remove(drink);
-			}
+			/*
+			 * Collection<Order> orders = orderDao.getAllBy(id); for (Order order : orders)
+			 * { order.getDrinks().remove(drink); }
+			 */
 			entityManager.remove(drink);
 			entityManager.getTransaction().commit();
-			System.out.println("PIZZA REMOVED");
+			System.out.println("DRINK REMOVED");
 		} catch (PersistenceException e) {
 			throw new NotDeletedDrinkException(e.getMessage());
 		}

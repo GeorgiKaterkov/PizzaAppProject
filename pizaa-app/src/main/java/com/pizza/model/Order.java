@@ -41,7 +41,6 @@ public class Order {
 	@Column(name = "isProceeded")
 	private boolean isProceeded;
 
-	// @Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "order_date")
 	private java.util.Date orderDate;
 

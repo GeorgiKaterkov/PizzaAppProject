@@ -7,6 +7,7 @@ public class DrinkBean {
 	private int id;
 	private String drinkName;
 	private BigDecimal price;
+	private int quantity;
 
 	public int getId() {
 		return id;
@@ -31,4 +32,14 @@ public class DrinkBean {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	
+	
 }

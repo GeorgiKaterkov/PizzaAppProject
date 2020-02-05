@@ -1,31 +1,36 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>  
 <html>
 <head>
 
 </head>
 <body>
-	<form method="post">
+	<form:form method="post" action="/drinkChoice" modelAttribute="bean">
 		<table align="center">
 			<tr>
-				<th>Name</th>				
-				<th>Price</th>
+				<th>Name/Price</th>				
 				<th>Quantity</th>
 				<th>Choice</th>
 			</tr>
-			<c:forEach items="${drinks}" var="drink" varStatus="status">
-				<tr>
-					<td align="center">${drink.drinkName}</td>					
-					<td align="center">${drink.price}</td>
-					<td align="center"><input type="number" name="quantity"
-						min="1" max="5"></td>
-					<input type="hidden" id="drinkId" name="drinkId"
-						value="${drink.id}">
-					<td align="center"><button type="submit">ADD</button></td>
-				</tr>
-			</c:forEach>
-			<td align="center" bgcolor="#26734d"><button onclick="redirect:userMenu">BACK TO MENU</button></td>			
+			<tr>
+				<td><form:select path="id">
+					<form:option value="0" label="--Select drink" />
+					<form:options itemValue="drinkId" itemLabel="name" items="${drinkVariaty}"/>						
+				</form:select>
+				</td>
+				<td>
+				<input type="number" name="quantity" min="1" max="5">
+				</td>
+				<td>
+				<button type = "submit">ADD</button>
+				</td>
+			</tr>
+
 		</table>
-	</form>
+	</form:form>
 </body>
 <style>
 table tr:nth-child(even) {
@@ -37,9 +42,8 @@ table tr:nth-child(odd) {
 }
 
 table th {
-	background-color: #26734d	;
+	background-color: #ffcc00;
 	color: white;
-	
 }
 
 table, th, td, button {

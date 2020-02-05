@@ -21,6 +21,7 @@ import com.pizza.model.Pizza;
 public class PizzaDaoImpl implements PizzaDao {
 
 	private static final String SELECT_PIZZA_BY_NAME = "FROM Pizza p WHERE p.namePizza = :name";
+	//private static final String SELECT_PIZZA_BY_DISTINCT_NAME = "DISTINCT FROM Pizza p WHERE p.namePizza = :name";
 	private EntityManager entityManager;
 	Scanner scan;
 	@Autowired
@@ -47,6 +48,12 @@ public class PizzaDaoImpl implements PizzaDao {
 		List<Pizza> listOfPizzas = entityManager.createQuery("FROM Pizza", Pizza.class).getResultList();
 		return listOfPizzas;
 	}
+	
+	@Override
+	public Collection<String> getAllByDistinctName() {
+		List<String> listOfPizzas = entityManager.createQuery("SELECT DISTINCT namePizza FROM Pizza", String.class).getResultList();
+		return listOfPizzas;
+	}
 
 	@Override
 	public void save(Pizza pizza) {
@@ -56,16 +63,12 @@ public class PizzaDaoImpl implements PizzaDao {
 	}
 
 	@Override
-	public void update(int id) {
-		try {
-		scan = new Scanner(System.in);
+	public void update(int id, BigDecimal price) {
+		try {		
 		Pizza pizza = entityManager.find(Pizza.class, id);
 
-		if (!pizza.equals(null)) {
-			System.out.println(pizza);
-			System.out.println("Update price: ");
-			BigDecimal newPrice = scan.nextBigDecimal();
-			pizza.setPrice(newPrice);
+		if (!pizza.equals(null)) {			
+			pizza.setPrice(price);
 			entityManager.getTransaction().begin();
 			entityManager.merge(pizza);
 			entityManager.getTransaction().commit();
@@ -78,33 +81,39 @@ public class PizzaDaoImpl implements PizzaDao {
 	}
 
 	@Override
-	public void delete(String name) {
-		Pizza pizza = null;
-		try{
-			pizza = entityManager.createQuery(SELECT_PIZZA_BY_NAME, Pizza.class).setParameter("name", name)
-					.getSingleResult();
-			}	
-			catch (NoResultException nre){
-				//Ignore this because as per your logic this is ok!
-				}
-		    if(pizza==null) {
+	public void delete(Integer id) {
+		    Pizza pizza = entityManager.find(Pizza.class, id);
+		/*
+		 * Pizza pizza = entityManager.createQuery(SELECT_PIZZA_BY_NAME,
+		 * Pizza.class).setParameter("name", name).setMaxResults(3) .getSingleResult();
+		 */	    
 			entityManager.getTransaction().begin();
 			entityManager.remove(pizza);
 			entityManager.getTransaction().commit();
-			System.out.println("PIZZA REMOVED");	
-		    }
+			System.out.println("PIZZA REMOVED");			    
 	}
 
 	@Override
-	public Collection<Pizza> getAllBy(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<Pizza> getAllBy(String name) {
+		try {
+			List<Pizza> pizzasOptions = entityManager.createQuery(SELECT_PIZZA_BY_NAME, Pizza.class).setParameter("name", name)
+					.getResultList();					
+			return pizzasOptions;
+		} catch (PersistenceException e) {
+			throw new NoSuchPizzaException(e.getMessage());
+		}		
 	}
 
 	@Override
 	public void processOrders(Pizza t) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Collection<Pizza> getAllBy(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.pizza.dao;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 
 import com.pizza.model.Pizza;
@@ -14,9 +15,13 @@ public interface PizzaDao {
     
     void save(Pizza pizza);
      
-    void update(int id);
+    void update(int id,BigDecimal price);
      
-    void delete(String name);
+    void delete(Integer id);
     
     void processOrders(Pizza pizza);
+
+	Collection<Pizza> getAllBy(String pizzaName);
+
+	Collection<String> getAllByDistinctName();
 }

@@ -56,16 +56,12 @@ public class SauceDaoImpl implements SauceDao {
 	}
 
 	@Override
-	public void update(int id) {
-		try {
-			scan = new Scanner(System.in);
+	public void update(int id, BigDecimal price) {
+		try {			
 			Sauce sauce = entityManager.find(Sauce.class, id);
 
-			if (!sauce.equals(null)) {
-				System.out.println(sauce);
-				System.out.println("Update price: ");
-				BigDecimal newPrice = scan.nextBigDecimal();
-				sauce.setPrice(newPrice);
+			if (!sauce.equals(null)) {				
+				sauce.setPrice(price);
 				entityManager.getTransaction().begin();
 				entityManager.merge(sauce);
 				entityManager.getTransaction().commit();
@@ -81,14 +77,13 @@ public class SauceDaoImpl implements SauceDao {
 	public void delete(int id) {
 		Sauce sauce = entityManager.find(Sauce.class, id);
 		entityManager.getTransaction().begin();
-		Collection<Order> orders = orderDao.getAllBy(id);
-		for (Order order : orders) {
-			order.getSauces().remove(sauce);
-		}
+		/*
+		 * Collection<Order> orders = orderDao.getAllBy(id); for (Order order : orders)
+		 * { order.getSauces().remove(sauce); }
+		 */
 		entityManager.remove(sauce);
-		entityManager.getTransaction().commit();
-		System.out.println("SAUCE REMOVED");
-	}
+		entityManager.getTransaction().commit();		
+	} 
 
 	@Override
 	public Collection<Sauce> getAllBy(Integer id) {

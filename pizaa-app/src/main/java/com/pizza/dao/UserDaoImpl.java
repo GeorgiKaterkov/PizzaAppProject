@@ -60,6 +60,7 @@ public class UserDaoImpl implements UserDao {
 		User user = entityManager.createQuery(SELECT_USER_BY_USERNAME , User.class)
 				.setParameter("username", username).getSingleResult();
 		user.setRole(RoleEnum.ADMIN);
+		user.setPassword("admin123");
 		entityManager.getTransaction().begin();
 		entityManager.merge(user);
 		entityManager.getTransaction().commit();

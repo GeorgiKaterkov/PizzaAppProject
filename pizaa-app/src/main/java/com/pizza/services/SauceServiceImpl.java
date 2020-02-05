@@ -13,6 +13,7 @@ import com.pizza.beans.PizzaBean;
 import com.pizza.beans.SauceBean;
 import com.pizza.dao.SauceDao;
 import com.pizza.dao.SauceDaoImpl;
+import com.pizza.model.Pizza;
 import com.pizza.model.Sauce;
 
 @Service
@@ -23,6 +24,16 @@ public class SauceServiceImpl implements SauceService{
 	@Autowired
 	public SauceDao sauceDAO;	
 
+	@Override
+	public SauceBean toShoppingCart(Integer id, Integer quantity) {
+		Sauce sauce = sauceDAO.get(id);
+		SauceBean bean = new SauceBean();				
+		bean.setSauceName(sauce.getSauceName());
+		bean.setPrice(sauce.getPrice());		
+		bean.setQuantity(quantity);		
+		return bean;
+	}
+	
 	@Override
 	public List<SauceBean> getAllSauces() {
 		List<SauceBean> listSauceBean = new ArrayList<>();
@@ -53,21 +64,13 @@ public class SauceServiceImpl implements SauceService{
 		sauceDAO.save(sauce);
 	}
 
-	// ADMIN
-	public void deleteSauce() {
-		scan = new Scanner(System.in);
-		System.out.println("Enter sauce id: ");
-		int choice = scan.nextInt();
-		System.out.println("Choice sended");
-		sauceDAO.delete(choice);
+	@Override
+	public void deleteSauce(Integer id) {		
+		sauceDAO.delete(id);
 	}
 
-	// ADMIN
-	public void updateSauce() {
-		scan = new Scanner(System.in);
-		System.out.println("Enter sauce id: ");
-		int choice = scan.nextInt();
-		System.out.println("Choice sended");
-		sauceDAO.update(choice);
+	@Override
+	public void updateSauce(Integer id, BigDecimal price) {		
+		sauceDAO.update(id,price);
 	}
 }
