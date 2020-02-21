@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.pizza.model.Order;
+import com.pizza.model.User;
 
 public interface OrderDao {
     
@@ -12,7 +13,7 @@ public interface OrderDao {
      
     Collection<Order> getAll();
      
-    Collection<Order> getAllBy(Integer id);
+    Collection<Order> getAllBy(User user);
     
     void save(Order order);
      

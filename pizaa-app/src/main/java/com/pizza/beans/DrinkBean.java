@@ -41,5 +41,9 @@ public class DrinkBean {
 		this.quantity = quantity;
 	}
 	
+	@Override
+	public String toString() {
+		return "DrinkBean [id=" + id + ", drinkName=" + drinkName + ", price=" + price + ", quantity=" + quantity + "]";
+	}
 	
 }

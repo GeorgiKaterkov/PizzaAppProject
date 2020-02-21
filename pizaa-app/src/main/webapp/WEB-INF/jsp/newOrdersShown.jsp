@@ -20,6 +20,7 @@
 			</c:forEach>
 			<tr>
 			<td align="center"><button onclick="processOrders">PROCESS</button></td>
+			<td align="center"><button onclick="redirect:/adminMenu">BACK</button></td>
 			</tr>
 		</table>				
 	</form>

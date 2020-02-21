@@ -29,7 +29,8 @@ public class DrinkServiceImpl implements DrinkService {
 	@Override
 	public DrinkBean toShoppingCart(Integer id, Integer quantity) {
 		Drink drink = drinkDAO.get(id);
-		DrinkBean bean = new DrinkBean();				
+		DrinkBean bean = new DrinkBean();	
+		bean.setId(drink.getId());
 		bean.setDrinkName(drink.getDrinkName());
 		bean.setPrice(drink.getPrice());		
 		bean.setQuantity(quantity);		

@@ -19,8 +19,10 @@
 					<td align="center">${order.date}</td>					
 				</tr>
 			</c:forEach>
-		</table>
-		<p><a href="adminMenu">Back to main menu</a></p>
+			<tr>
+				<td><button onclick="redirect:/adminMenu">BACK</button></td>								
+			</tr>
+		</table>	
 	</form>
 </body>
 <style>

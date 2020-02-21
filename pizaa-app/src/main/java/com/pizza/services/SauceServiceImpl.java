@@ -27,7 +27,8 @@ public class SauceServiceImpl implements SauceService{
 	@Override
 	public SauceBean toShoppingCart(Integer id, Integer quantity) {
 		Sauce sauce = sauceDAO.get(id);
-		SauceBean bean = new SauceBean();				
+		SauceBean bean = new SauceBean();
+		bean.setId(sauce.getId());
 		bean.setSauceName(sauce.getSauceName());
 		bean.setPrice(sauce.getPrice());		
 		bean.setQuantity(quantity);		

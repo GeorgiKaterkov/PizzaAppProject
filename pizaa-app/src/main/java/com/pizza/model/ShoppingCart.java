@@ -32,5 +32,10 @@ public class ShoppingCart {
 	public void setDrinks(List<DrinkBean> drinks) {
 		this.drinks = drinks;
 	}
+	@Override
+	public String toString() {
+		return "ShoppingCart [pizzas=" + pizzas + ", sauces=" + sauces + ", drinks=" + drinks + "]";
+	}
+	
 	
 }

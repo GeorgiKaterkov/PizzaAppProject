@@ -1,5 +1,6 @@
 package com.pizza.controllers;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.pizza.model.RoleEnum;
-import com.pizza.model.ShoppingCart;
 import com.pizza.model.User;
 import com.pizza.services.UserService;
 
@@ -27,7 +27,7 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(value= {"/userMenu"}, method = RequestMethod.POST)
+    @RequestMapping(value= {"/loginPage"}, method = RequestMethod.POST)
     public String showWelcomePage(Model model, @RequestParam String username, @RequestParam String password){
 
     	
@@ -35,15 +35,16 @@ public class LoginController {
         
         if (loggedUser == null) {
             model.addAttribute("errorMessage", "Invalid Credentials");
-            return "login";
+            return "redirect:/login";
         }
         model.addAttribute("username", username);
         model.addAttribute("password", password);
+        model.addAttribute("loggedUser",loggedUser);        
         
         if (loggedUser.getRole().name().equals(RoleEnum.ADMIN.name())) {
-        	return "adminMenu";
+        	return "redirect:/adminMenu";
         }         
-        return "userMenu";
+        return "redirect:/userMenu";
     }
     
     @ModelAttribute("loggedUser") public User loggedUser() { return

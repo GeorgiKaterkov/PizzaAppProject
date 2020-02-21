@@ -14,7 +14,8 @@
 				<label><b>Username: </b></label> <input type="text" name="username">				
 				<button type="submit" name="button">
 					<b>CHANGE</b>
-				</button>				
+				</button>	
+				<button onclick="redirect:/adminMenu">BACK</button>			
 		</div>
 	</form>
 

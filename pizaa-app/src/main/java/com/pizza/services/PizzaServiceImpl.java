@@ -27,7 +27,8 @@ public class PizzaServiceImpl implements PizzaService {
 	@Override
 	public PizzaBean toShoppingCart(Integer id, Integer quantity) {
 		Pizza pizza = pizzaDAO.get(id);
-		PizzaBean bean = new PizzaBean();				
+		PizzaBean bean = new PizzaBean();
+		bean.setPizzaId(pizza.getId());
 		bean.setNamePizza(pizza.getNamePizza());
 		bean.setPizzaSize(pizza.getPizzaSize().toString());
 		bean.setPrice(pizza.getPrice());

@@ -40,6 +40,11 @@ public class SauceBean {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
+
+	@Override
+	public String toString() {
+		return "SauceBean [id=" + id + ", sauceName=" + sauceName + ", price=" + price + ", quantity=" + quantity + "]";
+	}
 	
 
 }

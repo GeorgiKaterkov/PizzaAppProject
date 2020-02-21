@@ -1,8 +1,10 @@
 package com.pizza.controllers;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -111,7 +113,7 @@ public class ShoppingCartController {
 
 	@RequestMapping(value = "/shoppingCart-detail-page", method = RequestMethod.GET)
 	public ModelAndView viewShoppingCartDetails(Model model, @ModelAttribute("shoppingCart") ShoppingCart shoppingCart,
-			@ModelAttribute("loggedUser") User loggedUser) {
+			@SessionAttribute("loggedUser") User loggedUser) {
 		
 		ModelAndView mv = new ModelAndView("shoppingCart");
 		
@@ -140,17 +142,17 @@ public class ShoppingCartController {
 			}			
 			model.addAttribute("drinks", drinks);
 			model.addAttribute("bean", new PizzaBean());			
-			model.addAttribute("sum", sum);
+			model.addAttribute("sum", sum);			
 			model.addAttribute("loggedUser",loggedUser);
 			mv.addObject("loggedUser", loggedUser);
-			System.out.println(loggedUser.toString());
+			
 		} else {
 			model.addAttribute("shoppingCart", new ShoppingCart());			
-			List<PizzaBean> pizzas = null;
+			List<PizzaBean> pizzas = new ArrayList<PizzaBean>();
 			model.addAttribute("pizzas", pizzas);
-			List<SauceBean> sauces = null;
+			List<SauceBean> sauces = new ArrayList<SauceBean>();
 			model.addAttribute("sauces", sauces);
-			List<DrinkBean> drinks = null;
+			List<DrinkBean> drinks = new ArrayList<DrinkBean>();
 			model.addAttribute("drinks", drinks);
 			model.addAttribute("bean", new PizzaBean());
 		}

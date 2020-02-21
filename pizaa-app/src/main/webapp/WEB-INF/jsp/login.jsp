@@ -1,3 +1,4 @@
+
 <html>
 
 <head>
@@ -6,7 +7,7 @@
 
 <body>
 
-	<form method="post" action="/userMenu">
+	<form method="post" action="/loginPage">
 		<div>
 			<h2 style="font-family: courier;" align="center">
 				Login page

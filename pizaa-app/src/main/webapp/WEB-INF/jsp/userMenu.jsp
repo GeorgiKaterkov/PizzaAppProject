@@ -4,19 +4,19 @@
 
 </head>
 <body>
-   <form method = "get" action="/userMenu">
-	<div>
-		<h2 style="font-family: courier;" align="center">MENU</h2>
-		<ul>
-			<li><a href="/pizzas">Choose pizza</a></li>
-			<li><a href="/sauces">Choose sauces</a></li>
-			<li><a href="/drinks">Choose drinks</a></li>
-			<li><a href="/shoppingCart-detail-page">Shopping cart</a></li>
-			<li><a href="/prevoiusOrder">Repeat a previous order</a></li>
-		</ul>
+	<form method="get" action="/userMenu">
+		<div>
+			<h2 style="font-family: courier;" align="center">MENU</h2>
+			<ul>
+				<li><a href="/pizzas">Choose pizza</a></li>
+				<li><a href="/sauces">Choose sauces</a></li>
+				<li><a href="/drinks">Choose drinks</a></li>
+				<li><a href="/shoppingCart-detail-page">Shopping cart</a></li>
+				<li><a href="/previousOrderList">Repeat a previous order</a></li>
+			</ul>
 
-	</div>
-    </form>
+		</div>
+	</form>
 </body>
 
 <style>

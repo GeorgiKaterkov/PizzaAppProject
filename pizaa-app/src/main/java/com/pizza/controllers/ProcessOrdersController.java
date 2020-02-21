@@ -30,7 +30,8 @@ public class ProcessOrdersController {
 	}
 	
 	@RequestMapping(value= "/processOrders" , method = {RequestMethod.GET, RequestMethod.POST})
-	public void pizzaChoice(ModelMap model) {		
+	public String pizzaChoice(ModelMap model) {		
 			orderService.processOrders();
+			return"adminMenu";
 	}
 }
